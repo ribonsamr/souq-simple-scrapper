@@ -1,12 +1,11 @@
-import json
 import csv
+import json
 import re
 
 import lxml
 import requests
 from bs4 import BeautifulSoup
 from openpyxl import Workbook
-from openpyxl.utils import get_column_letter
 
 
 def crawl(link):
@@ -30,7 +29,7 @@ def crawl(link):
         for i in page_soup.select("h5.price span.is")
     ]
 
-    # Zip items and prices in a list and return it
+    # Zip items and prices in a list then return it
     page_pairs = list(zip(page_items, page_prices))
     return page_pairs
 
@@ -40,7 +39,7 @@ def write_sheet(wb, sheet_name, header, pairs, active=False):
     ws = None
 
     if active:
-        # If it's the first sheet to write
+        # If true, write to the first worksheet, else, create a new sheet
         ws = wb.active
         ws.title = sheet_name
     else:
