@@ -8,4 +8,4 @@
 4. `source venv/bin/activate` or `venv\Scripts\activate.bat` (Windows CMD)
 5. `pip install -r requirements.txt`
 
-Then run it with `python souq.py`. The results should be outputed to `data.xlsx` *(you can change the file name within the code)*.
+Then run it with `python souq.py`. The results should be output to `data.xlsx` *(you can change the file name within the code)*.
