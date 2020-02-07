@@ -12,7 +12,7 @@ from openpyxl.utils import get_column_letter
 def crawl(link):
     try:
         page = requests.get(link)
-    except:
+    except requests.exceptions.RequestException:
         print("Couldn't load the webpage.")
         return False
 
@@ -89,4 +89,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        exit(0)
