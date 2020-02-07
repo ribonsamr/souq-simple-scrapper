@@ -1,0 +1,42 @@
+[{
+    "link": "https://deals.souq.com/eg-en/mobiles/cc/482",
+    "sheet_name": "Mobiles",
+    "header": ["Mobile", "Price (EGP)"],
+    "active": true
+}, {
+    "link": "https://deals.souq.com/eg-en/health-and-beauty/cc/428",
+    "sheet_name": "Health & Beauty",
+    "header": ["Name", "Price (EGP)"]
+}, {
+    "link": "https://deals.souq.com/eg-en/mobiles-and-electronics/cc/424",
+    "sheet_name": "Electronics",
+    "header": ["Name", "Price (EGP)"]
+}, {
+    "link": "https://deals.souq.com/eg-en/moms-and-babies/cc/351",
+    "sheet_name": "Moms & Babies",
+    "header": ["Name", "Price (EGP)"]
+}, {
+    "link": "https://deals.souq.com/eg-en/home-and-kitchen/cc/493",
+    "sheet_name": "Home & Kitchen",
+    "header": ["Name", "Price (EGP)"]
+}, {
+    "link": "https://deals.souq.com/eg-en/stationery/cc/402",
+    "sheet_name": "Office Products",
+    "header": ["Name", "Price (EGP)"]
+}, {
+    "link": "https://deals.souq.com/eg-en/car-accessories/cc/400",
+    "sheet_name": "Automotive",
+    "header": ["Name", "Price (EGP)"]
+}, {
+    "link": "https://deals.souq.com/eg-en/appliances/cc/348",
+    "sheet_name": "Appliances",
+    "header": ["Name", "Price (EGP)"]
+}, {
+    "link": "https://deals.souq.com/eg-en/sports/cc/403",
+    "sheet_name": "Sports",
+    "header": ["Name", "Price (EGP)"]
+}, {
+    "link": "https://deals.souq.com/eg-en/toys/cc/495",
+    "sheet_name": "Toys",
+    "header": ["Name", "Price (EGP)"]
+}]

@@ -1,3 +1,4 @@
+import json
 import csv
 import re
 
@@ -7,54 +8,14 @@ from bs4 import BeautifulSoup
 from openpyxl import Workbook
 from openpyxl.utils import get_column_letter
 
-excel_filename = 'data.xlsx'
-
-webpages = [{
-    'link': 'https://deals.souq.com/eg-en/mobiles/cc/482',
-    'sheet_name': 'Mobiles',
-    'header': ['Mobile', 'Price (EGP)'],
-    'active': True
-}, {
-    'link': 'https://deals.souq.com/eg-en/health-and-beauty/cc/428',
-    'sheet_name': 'Health & Beauty',
-    'header': ['Name', 'Price (EGP)'],
-}, {
-    'link': 'https://deals.souq.com/eg-en/mobiles-and-electronics/cc/424',
-    'sheet_name': 'Electronics',
-    'header': ['Name', 'Price (EGP)'],
-}, {
-    'link': 'https://deals.souq.com/eg-en/moms-and-babies/cc/351',
-    'sheet_name': 'Moms & Babies',
-    'header': ['Name', 'Price (EGP)'],
-}, {
-    'link': 'https://deals.souq.com/eg-en/home-and-kitchen/cc/493',
-    'sheet_name': 'Home & Kitchen',
-    'header': ['Name', 'Price (EGP)'],
-}, {
-    'link': 'https://deals.souq.com/eg-en/stationery/cc/402',
-    'sheet_name': 'Office Products',
-    'header': ['Name', 'Price (EGP)'],
-}, {
-    'link': 'https://deals.souq.com/eg-en/car-accessories/cc/400',
-    'sheet_name': 'Automotive',
-    'header': ['Name', 'Price (EGP)'],
-}, {
-    'link': 'https://deals.souq.com/eg-en/appliances/cc/348',
-    'sheet_name': 'Appliances',
-    'header': ['Name', 'Price (EGP)'],
-}, {
-    'link': 'https://deals.souq.com/eg-en/sports/cc/403',
-    'sheet_name': 'Sports',
-    'header': ['Name', 'Price (EGP)'],
-}, {
-    'link': 'https://deals.souq.com/eg-en/toys/cc/495',
-    'sheet_name': 'Toys',
-    'header': ['Name', 'Price (EGP)'],
-}]
-
 
 def crawl(link):
-    page = requests.get(link)
+    try:
+        page = requests.get(link)
+    except:
+        print("Couldn't load the webpage.")
+        return False
+
     page_soup = BeautifulSoup(page.text, 'lxml')
 
     # Get items titles
@@ -95,23 +56,37 @@ def write_sheet(wb, sheet_name, header, pairs, active=False):
             _ = ws.cell(column=col, row=row, value=f"{pairs[row-2][col-1]}")
 
 
-# Create new Excel file
-wb = Workbook()
+def main():
+    excel_filename = 'data.xlsx'
 
-# Loop through webpages, get each one's data, and write it to the excel sheet
-for page in webpages:
-    print("Getting {}... ".format(page['sheet_name']), end='', flush=True)
-    content = crawl(page['link'])
-    print("Done.")
+    # Load pages.json
+    with open('pages.json') as js_file:
+        webpages = json.load(js_file)
 
-    write_sheet(
-        wb,
-        page['sheet_name'],
-        page['header'],
-        content,
-        active=page.get('active') or False)
+    # Create new Excel file
+    wb = Workbook()
 
-# Save the final excel file
-wb.save(filename=excel_filename)
+    # Loop through webpages, get each one's data, and write it to the excel sheet
+    for page in webpages:
+        print("Getting {}... ".format(page['sheet_name']), end='', flush=True)
+        content = crawl(page['link'])
+        if content:
+            print("Done.")
+        else:
+            continue
 
-print("Data saved to '{}'".format(excel_filename))
+        write_sheet(
+            wb,
+            page['sheet_name'],
+            page['header'],
+            content,
+            active=page.get('active') or False)
+
+    # Save the final excel file
+    wb.save(filename=excel_filename)
+
+    print("Data saved to '{}'".format(excel_filename))
+
+
+if __name__ == "__main__":
+    main()
